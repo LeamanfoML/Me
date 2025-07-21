@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>NFT Arbitrage Bot</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎁 NFT Gift Arbitrage</h1>
+            <div class="controls">
+                <button id="refreshBtn">🔄 Обновить</button>
+                <label class="switch">
+                    <input type="checkbox" id="autoRefreshToggle" checked>
+                    <span class="slider">Автообновление (10s)</span>
+                </label>
+                <select id="sortSelect">
+                    <option value="profit_desc">Прибыль (↓)</option>
+                    <option value="end_time_asc">Время окончания (↑)</option>
+                </select>
+            </div>
+        </header>
+        
+        <div class="filters">
+            <input type="number" id="minProfit" placeholder="Мин. прибыль (TON)" step="0.01" min="0.1" value="0.1">
+            <input type="number" id="maxPrice" placeholder="Макс. цена (TON)" step="1" min="1" value="100">
+            <button id="applyFilters">Применить</button>
+        </div>
+        
+        <div id="opportunitiesList" class="list"></div>
+        
+        <div class="stats">
+            <p>Обновлено: <span id="lastUpdate">--:--:--</span></p>
+            <p>Найдено: <span id="totalOpportunities">0</span> возможностей</p>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
