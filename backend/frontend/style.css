@@ -1,0 +1,180 @@
+:root {
+    --primary: #8a2be2;
+    --secondary: #4b0082;
+    --background: #121212;
+    --card-bg: #1e1e1e;
+    --text: #ffffff;
+    --border: #333333;
+    --profit-positive: #4caf50;
+    --profit-negative: #f44336;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text);
+    padding: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+header {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+h1 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: var(--secondary);
+}
+
+select, input {
+    background-color: var(--card-bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.filters input {
+    flex: 1;
+    min-width: 120px;
+}
+
+.switch {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.list {
+    display: grid;
+    gap: 12px;
+}
+
+.opportunity-card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.gift-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.model {
+    background-color: var(--secondary);
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+.prices {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.price-item {
+    text-align: center;
+}
+
+.price-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.price-value {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.profit {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.profit.positive {
+    color: var(--profit-positive);
+}
+
+.auction-time {
+    display: flex;
+    justify-content: space-between;
+    color: #aaa;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    color: #aaa;
+}
+
+@media (max-width: 480px) {
+    .prices {
+        grid-template-columns: 1fr;
+    }
+    
+    .controls, .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
