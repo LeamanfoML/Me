@@ -26,22 +26,27 @@ class Scheduler:
                 await asyncio.sleep(60)  # Пауза при ошибке
     
     async def update_data(self):
-        # Получаем данные с обоих маркетплейсов
-        portals_auctions = await self.portals_api.get_active_auctions()
-        tonnel_auctions = await self.tonnel_api.get_active_auctions()
-        
-        portals_prices = await self.portals_api.get_market_prices()
-        tonnel_prices = await self.tonnel_api.get_market_prices()
-        
-        # Обогащаем данные ценами
-        for item in portals_auctions:
-            item.tonnel_price = tonnel_prices.get(item.id, 0)
-        
-        for item in tonnel_auctions:
-            item.portals_price = portals_prices.get(item.id, 0)
-        
-        # Объединяем все аукционы
-        all_items = portals_auctions + tonnel_auctions
+    # Получаем данные с Portals
+    portals_auctions = await self.portals_api.get_active_auctions()
+    portals_prices = await self.portals_api.get_market_prices()
+    
+    # Получаем данные с Tonnel
+    tonnel_auctions = await self.tonnel_api.get_active_auctions()
+    tonnel_prices = await self.tonnel_api.get_market_listings()
+    
+    # Обогащаем данные ценами
+    for item in portals_auctions:
+        # Для Portals аукционов добавляем цены Tonnel
+        item.tonnel_price = tonnel_prices.get(item.id, 0)
+        item.portals_price = portals_prices.get(item.id, 0)
+    
+    for item in tonnel_auctions:
+        # Для Tonnel аукционов добавляем цены Portals
+        item.portals_price = portals_prices.get(item.id, 0)
+        item.tonnel_price = tonnel_prices.get(item.id, 0)
+    
+    # Объединяем все аукционы
+    all_items = portals_auctions + tonnel_auctions
         
         # Рассчитываем арбитраж
         results = []
