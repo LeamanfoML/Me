@@ -15,7 +15,7 @@ BOT_TOKEN = "8282443190:AAESG9behz4_m3pbYDCaCOFBj7wXmxiWMd8"
 
 # !!! ВАЖНО: Это временный URL. Замените его на реальный URL вашего Web App, когда он будет готов.
 # Для теста можно использовать любой сайт, например, от Google.
-WEB_APP_URL = "https://www.google.com"
+WEB_APP_URL = "https://me-seven-nu.vercel.app/"
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
