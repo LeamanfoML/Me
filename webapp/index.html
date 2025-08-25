@@ -16,70 +16,36 @@
             margin: 0;
             text-align: center;
         }
-        #login-widget-container, #app-content {
+        .container {
             padding: 20px;
-        }
-        /* Скрываем контент по умолчанию */
-        #app-content {
-            display: none;
         }
     </style>
 </head>
 <body>
 
-    <!-- Этот блок будет показан, если пользователь открыл сайт в браузере -->
-    <div id="login-widget-container">
-        <h1>Добро пожаловать в Аниме-хаб</h1>
-        <p>Для доступа к сайту, пожалуйста, войдите через Telegram.</p>
-        <!-- Сюда будет добавлена кнопка входа -->
+    <div class="container" id="content">
+        <!-- Сюда будет добавлено содержимое -->
     </div>
 
-    <!-- Этот блок будет показан, если пользователь открыл Web App в Telegram -->
-    <div id="app-content">
-        <h1 id="greeting"></h1>
-        <p>Это основа нашего будущего Аниме-хаба.</p>
-    </div>
-
-    <!-- Самый важный скрипт для интеграции с Telegram -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         const tg = window.Telegram.WebApp;
-
-        const loginContainer = document.getElementById('login-widget-container');
-        const appContainer = document.getElementById('app-content');
-        const greetingElement = document.getElementById('greeting');
-
-        // Функция, которая сработает после успешной авторизации через виджет
-        function onTelegramAuth(user) {
-            // В будущем здесь будет отправка данных на бэкенд для создания сессии
-            console.log('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + ')');
-            loginContainer.style.display = 'none';
-            appContainer.style.display = 'block';
-            greetingElement.innerText = `👋 Привет, ${user.first_name}!`;
-        }
+        const contentElement = document.getElementById('content');
 
         // Проверяем, есть ли данные о пользователе. Если есть - значит, мы внутри Telegram.
         if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-            loginContainer.style.display = 'none';
-            appContainer.style.display = 'block';
-            greetingElement.innerText = `👋 Привет, ${tg.initDataUnsafe.user.first_name}!`;
+            contentElement.innerHTML = `
+                <h1>👋 Привет, ${tg.initDataUnsafe.user.first_name}!</h1>
+                <p>Это основа нашего будущего Аниме-хаба.</p>
+            `;
         } else {
-            // Если данных нет - мы в обычном браузере. Показываем кнопку входа.
-            loginContainer.style.display = 'block';
-            appContainer.style.display = 'none';
-
-            // Создаем и добавляем скрипт для виджета Telegram
-            const script = document.createElement('script');
-            script.src = 'https://telegram.org/js/telegram-widget.js?22';
-            // !!! ВАЖНО: ЗАМЕНИТЕ <YOUR_BOT_USERNAME> НА ЮЗЕРНЕЙМ ВАШЕГО БОТА !!!
-            script.setAttribute('data-telegram-login', '<AniLensBot>');
-            script.setAttribute('data-size', 'large');
-            script.setAttribute('data-onauth', 'onTelegramAuth(user)');
-            script.setAttribute('data-request-access', 'write');
-            loginContainer.appendChild(script);
+            // Если данных нет - мы в обычном браузере.
+            contentElement.innerHTML = `
+                <h1>Ошибка</h1>
+                <p>Пожалуйста, запустите это приложение через вашего Telegram бота.</p>
+            `;
         }
 
     </script>
 </body>
 </html>
-html>
